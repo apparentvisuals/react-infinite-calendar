@@ -1,5 +1,6 @@
 import moment from 'moment';
 import 'moment-range';
+
 import getScrollbarSize from 'dom-helpers/util/scrollbarSize';
 
 export const keyCodes = {

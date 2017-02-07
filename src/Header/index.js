@@ -1,11 +1,10 @@
-import React, {Component, PropTypes} from 'react';
-import shallowCompare from 'react-addons-shallow-compare';
+import React, {PureComponent, PropTypes} from 'react';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import classNames from 'classnames';
 const style = require('./Header.scss');
 const animation = require('./Animation.scss');
 
-export default class Header extends Component {
+export default class Header extends PureComponent {
 	static propTypes = {
 		layout: PropTypes.string,
 		locale: PropTypes.object,
@@ -15,9 +14,7 @@ export default class Header extends Component {
 		theme: PropTypes.object,
 		display: PropTypes.string
 	};
-	shouldComponentUpdate(nextProps) {
-		return shallowCompare(this, nextProps);
-	}
+
 	render() {
 		let {display, layout, locale, scrollToDate, selectedDate, setDisplay, shouldHeaderAnimate, theme} = this.props;
 		let values = selectedDate && [

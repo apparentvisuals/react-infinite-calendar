@@ -1,19 +1,16 @@
-import React, {Component, PropTypes} from 'react';
-import shallowCompare from 'react-addons-shallow-compare';
+import React, {PureComponent, PropTypes} from 'react';
 import moment from 'moment';
 import range from 'lodash/range';
 import {scrollbarSize} from '../utils';
 const style = require('./Weekdays.scss');
 
 
-export default class Weekdays extends Component {
+export default class Weekdays extends PureComponent {
 	static propTypes = {
 		locale: PropTypes.object,
 		theme: PropTypes.object
 	};
-	shouldComponentUpdate(nextProps) {
-		return shallowCompare(this, nextProps);
-	}
+
 	render() {
 		let {theme} = this.props;
 
