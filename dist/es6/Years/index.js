@@ -1,28 +1,4 @@
-'use strict';
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _react = require('react');
-
-var _react2 = _interopRequireDefault(_react);
-
-var _reactVirtualized = require('react-virtualized');
-
-var _classnames = require('classnames');
-
-var _classnames2 = _interopRequireDefault(_classnames);
-
-var _utils = require('../utils');
-
-var _moment = require('moment');
-
-var _moment2 = _interopRequireDefault(_moment);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
@@ -32,6 +8,11 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+import React, { Component, PropTypes } from 'react';
+import { List as VirtualScroll } from 'react-virtualized';
+import classNames from 'classnames';
+import { keyCodes } from '../utils';
+import moment from 'moment';
 var style = {
     'root': 'Cal__Years__root',
     'list': 'Cal__Years__list',
@@ -50,7 +31,7 @@ var Years = function (_Component) {
         var _this = _possibleConstructorReturn(this, (Years.__proto__ || Object.getPrototypeOf(Years)).call(this, props));
 
         _this.state = {
-            selectedYear: props.selectedDate ? props.selectedDate.year() : (0, _moment2.default)().year()
+            selectedYear: props.selectedDate ? props.selectedDate.year() : moment().year()
         };
         return _this;
     }
@@ -72,7 +53,7 @@ var Years = function (_Component) {
                 selectedDate = _props.selectedDate,
                 setDisplay = _props.setDisplay;
 
-            var date = selectedDate || (0, _moment2.default)();
+            var date = selectedDate || moment();
             var newDate = date.clone().year(year);
 
             this.selectDate(newDate, e, !hideYearsOnSelect);
@@ -115,21 +96,21 @@ var Years = function (_Component) {
             var delta = 0;
 
             switch (e.keyCode) {
-                case _utils.keyCodes.enter:
-                case _utils.keyCodes.escape:
+                case keyCodes.enter:
+                case keyCodes.escape:
                     setDisplay('days');
-                    scrollToDate(selectedDate || (0, _moment2.default)(selectedYear, 'YYYY'), -40);
+                    scrollToDate(selectedDate || moment(selectedYear, 'YYYY'), -40);
                     return;
-                case _utils.keyCodes.down:
+                case keyCodes.down:
                     delta = +1;
                     break;
-                case _utils.keyCodes.up:
+                case keyCodes.up:
                     delta = -1;
                     break;
             }
 
             if (delta) {
-                if (!selectedDate) selectedDate = (0, _moment2.default)().year(selectedYear);
+                if (!selectedDate) selectedDate = moment().year(selectedYear);
 
                 var newSelectedDate = selectedDate.clone().add(delta, 'year');
                 this.selectDate(newSelectedDate, e);
@@ -147,7 +128,7 @@ var Years = function (_Component) {
                 width = _props4.width;
             var selectedYear = this.state.selectedYear;
 
-            var currentYear = (0, _moment2.default)().year();
+            var currentYear = moment().year();
             var years = this.props.years.slice(0, this.props.years.length);
             // Add spacer rows at the top and bottom
             years.unshift(null);
@@ -161,13 +142,13 @@ var Years = function (_Component) {
                 width = window.innerWidth * parseInt(width.replace('%', ''), 10) / 100; // See https://github.com/bvaughn/react-virtualized/issues/229
             }
 
-            return _react2.default.createElement(
+            return React.createElement(
                 'div',
                 {
                     className: style.root,
                     style: { color: theme.selectionColor, height: height + 50 }
                 },
-                _react2.default.createElement(_reactVirtualized.List, {
+                React.createElement(VirtualScroll, {
                     ref: 'VirtualScroll',
                     className: style.list,
                     width: width,
@@ -187,10 +168,10 @@ var Years = function (_Component) {
 
                             var isActive = index == selectedYearIndex;
 
-                            return _react2.default.createElement(
+                            return React.createElement(
                                 'div',
                                 {
-                                    className: (0, _classnames2.default)(style.year, (_classNames = {}, _defineProperty(_classNames, style.active, isActive), _defineProperty(_classNames, style.currentYear, year == currentYear), _classNames)),
+                                    className: classNames(style.year, (_classNames = {}, _defineProperty(_classNames, style.active, isActive), _defineProperty(_classNames, style.currentYear, year == currentYear), _classNames)),
                                     onClick: function onClick() {
                                         return _this2.handleClick(year);
                                     },
@@ -198,14 +179,14 @@ var Years = function (_Component) {
                                     'data-year': year,
                                     style: Object.assign({}, rowStyle, { color: typeof theme.selectionColor == 'function' ? theme.selectionColor(selectedDate.clone().year(year)) : theme.selectionColor })
                                 },
-                                _react2.default.createElement(
+                                React.createElement(
                                     'span',
                                     { style: year == currentYear ? { borderColor: theme.todayColor } : null },
                                     year
                                 )
                             );
                         } else {
-                            return _react2.default.createElement('div', { className: style.spacer });
+                            return React.createElement('div', { className: style.spacer });
                         }
                     }
                 })
@@ -214,19 +195,19 @@ var Years = function (_Component) {
     }]);
 
     return Years;
-}(_react.Component);
+}(Component);
 
 Years.propTypes = {
-    height: _react.PropTypes.number,
-    width: _react.PropTypes.oneOfType([_react.PropTypes.number, _react.PropTypes.string]),
-    hideYearsOnSelect: _react.PropTypes.bool,
-    maxDate: _react.PropTypes.object,
-    minDate: _react.PropTypes.object,
-    onDaySelect: _react.PropTypes.func,
-    scrollToDate: _react.PropTypes.func,
-    selectedDate: _react.PropTypes.object,
-    setDisplay: _react.PropTypes.func,
-    theme: _react.PropTypes.object,
-    years: _react.PropTypes.array
+    height: PropTypes.number,
+    width: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+    hideYearsOnSelect: PropTypes.bool,
+    maxDate: PropTypes.object,
+    minDate: PropTypes.object,
+    onDaySelect: PropTypes.func,
+    scrollToDate: PropTypes.func,
+    selectedDate: PropTypes.object,
+    setDisplay: PropTypes.func,
+    theme: PropTypes.object,
+    years: PropTypes.array
 };
-exports.default = Years;
+export default Years;

@@ -33,8 +33,7 @@ module.exports = {
     externals: {
         'react': 'React',
         'react-dom': 'ReactDOM',
-        'react-addons-css-transition-group': 'var React.addons.CSSTransitionGroup',
-        'react-addons-shallow-compare': 'var React.addons.shallowCompare'
+        'react-addons-css-transition-group': 'var React.addons.CSSTransitionGroup'
     },
     plugins: (minify) ? plugins.minify : plugins.default,
     resolve: {

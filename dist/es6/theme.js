@@ -1,5 +1,3 @@
-'use strict';
-
 module.exports = {
     textColor: {
         default: '#333',

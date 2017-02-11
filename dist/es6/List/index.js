@@ -1,32 +1,4 @@
-'use strict';
-
-Object.defineProperty(exports, "__esModule", {
-	value: true
-});
-
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _react = require('react');
-
-var _react2 = _interopRequireDefault(_react);
-
-var _reactVirtualized = require('react-virtualized');
-
-var _classnames = require('classnames');
-
-var _classnames2 = _interopRequireDefault(_classnames);
-
-var _moment = require('moment');
-
-var _moment2 = _interopRequireDefault(_moment);
-
-var _utils = require('../utils');
-
-var _Month = require('../Month');
-
-var _Month2 = _interopRequireDefault(_Month);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
@@ -36,6 +8,12 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+import React, { Component, PropTypes } from 'react';
+import { List as VirtualScroll } from 'react-virtualized';
+import classNames from 'classnames';
+
+import { getMonth, getWeeksInMonth, validParsedDate } from '../utils';
+import Month from '../Month';
 var style = {
 	'root': 'Cal__List__root',
 	'scrolling': 'Cal__List__scrolling'
@@ -57,7 +35,7 @@ var List = function (_Component) {
 
 		return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = List.__proto__ || Object.getPrototypeOf(List)).call.apply(_ref, [this].concat(args))), _this), _this.cache = {}, _this.state = {}, _this.memoize = function (param) {
 			if (!this.cache[param]) {
-				var result = (0, _utils.getMonth)(param); //custom function
+				var result = getMonth(param); //custom function
 				this.cache[param] = result;
 			}
 			return this.cache[param];
@@ -71,7 +49,7 @@ var List = function (_Component) {
 				    rowHeight = _this$props.rowHeight;
 
 				var date = months[index];
-				var weeks = (0, _utils.getWeeksInMonth)(date, locale);
+				var weeks = getWeeksInMonth(date, locale);
 				var height = weeks * rowHeight;
 				_this.monthHeights[index] = height;
 			}
@@ -127,7 +105,7 @@ var List = function (_Component) {
 			    date = _this$memoize.date,
 			    rows = _this$memoize.rows;
 
-			return _react2.default.createElement(_Month2.default, {
+			return React.createElement(Month, {
 				key: 'Month-' + index,
 				selectedDate: selectedDate,
 				displayDate: date,
@@ -175,7 +153,7 @@ var List = function (_Component) {
 				width = window.innerWidth * parseInt(width.replace('%', ''), 10) / 100; // See https://github.com/bvaughn/react-virtualized/issues/229
 			}
 
-			return _react2.default.createElement(_reactVirtualized.List, {
+			return React.createElement(VirtualScroll, {
 				ref: 'VirtualScroll',
 				width: width,
 				height: height,
@@ -185,7 +163,7 @@ var List = function (_Component) {
 				rowRenderer: this.renderMonth,
 				onScroll: onScroll,
 				scrollTop: this._initScrollTop,
-				className: (0, _classnames2.default)(style.root, _defineProperty({}, style.scrolling, isScrolling)),
+				className: classNames(style.root, _defineProperty({}, style.scrolling, isScrolling)),
 				style: { lineHeight: rowHeight + 'px' },
 				overscanRowCount: overscanMonthCount
 			});
@@ -193,26 +171,26 @@ var List = function (_Component) {
 	}]);
 
 	return List;
-}(_react.Component);
+}(Component);
 
 List.propTypes = {
-	width: _react.PropTypes.oneOfType([_react.PropTypes.number, _react.PropTypes.string]),
-	height: _react.PropTypes.number,
-	rowHeight: _react.PropTypes.number,
-	selectedDate: _react.PropTypes.object,
-	disabledDates: _react.PropTypes.arrayOf(_react.PropTypes.string),
-	disabledDays: _react.PropTypes.arrayOf(_react.PropTypes.number),
-	months: _react.PropTypes.arrayOf(_react.PropTypes.object),
-	onDaySelect: _react.PropTypes.func,
-	onScroll: _react.PropTypes.func,
-	overscanMonthCount: _react.PropTypes.number,
-	isScrolling: _react.PropTypes.bool,
-	today: _utils.validParsedDate,
-	min: _utils.validParsedDate,
-	minDate: _utils.validParsedDate,
-	maxDate: _utils.validParsedDate,
-	showOverlay: _react.PropTypes.bool,
-	theme: _react.PropTypes.object,
-	locale: _react.PropTypes.object
+	width: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+	height: PropTypes.number,
+	rowHeight: PropTypes.number,
+	selectedDate: PropTypes.object,
+	disabledDates: PropTypes.arrayOf(PropTypes.string),
+	disabledDays: PropTypes.arrayOf(PropTypes.number),
+	months: PropTypes.arrayOf(PropTypes.object),
+	onDaySelect: PropTypes.func,
+	onScroll: PropTypes.func,
+	overscanMonthCount: PropTypes.number,
+	isScrolling: PropTypes.bool,
+	today: validParsedDate,
+	min: validParsedDate,
+	minDate: validParsedDate,
+	maxDate: validParsedDate,
+	showOverlay: PropTypes.bool,
+	theme: PropTypes.object,
+	locale: PropTypes.object
 };
-exports.default = List;
+export default List;

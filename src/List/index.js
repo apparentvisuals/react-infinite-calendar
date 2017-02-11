@@ -1,7 +1,7 @@
 import React, {Component, PropTypes} from 'react';
 import {List as VirtualScroll} from 'react-virtualized';
 import classNames from 'classnames';
-import moment from 'moment';
+
 import {getMonth, getWeeksInMonth, validParsedDate} from '../utils';
 import Month from '../Month';
 const style = require('./List.scss');

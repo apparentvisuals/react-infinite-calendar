@@ -8,8 +8,7 @@
   },
   "user": "clauderic",
   "homepage": "https://github.com/clauderic/react-infinite-calendar",
-  "main": "dist/commonjs/index.js",
-  "jsnext:main": "dist/es6/index.js",
+  "main": "dist/es6/index.js",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -38,7 +37,7 @@
   ],
   "scripts": {
     "start": "node server.js",
-    "build": "npm run clean:es6 && cross-env BABEL_ENV=es6 BABEL_DISABLE_CACHE=1 babel src --out-dir dist/es6 --ignore *.test.js",
+    "build": "npm run clean && cross-env BABEL_ENV=es6 BABEL_DISABLE_CACHE=1 babel src --out-dir dist/es6 --ignore *.test.js",
     "clean": "rimraf dist/es6",
     "test": "cross-env BABEL_ENV=testing karma start --single-run --browsers PhantomJS",
     "codecov": "cat coverage/*/lcov.info | codecov"
@@ -47,15 +46,14 @@
     "classnames": "^2.1.2",
     "dom-helpers": "^2.4.0",
     "lodash": "^4.12.0",
-    "moment": "2.13.0",
-    "moment-range": "2.2.0",
-    "react-virtualized": "^8.0.7"
+    "moment": "^2.17.1",
+    "moment-range": "^3.0.1",
+    "react-virtualized": "^8.11.4"
   },
   "peerDependencies": {
     "react": "^0.14.0 || ^15.0.0",
     "react-dom": "^0.14.0 || ^15.0.0",
-    "react-addons-css-transition-group": "^0.14.0 || ^15.0.0",
-    "react-addons-shallow-compare": "^0.14.0 || ^15.0.0"
+    "react-addons-css-transition-group": "^0.14.0 || ^15.0.0"
   },
   "devDependencies": {
     "autoprefixer": "^6.3.6",
@@ -112,7 +110,6 @@
     "raw-loader": "^0.5.1",
     "react": "^0.14.0 || ^15.0.0",
     "react-addons-css-transition-group": "^0.14.0 || ^15.0.0",
-    "react-addons-shallow-compare": "^0.14.0 || ^15.0.0",
     "react-addons-test-utils": "^15.1.0",
     "react-dom": "^0.14.0 || ^15.0.0",
     "redux": "^3.5.2",

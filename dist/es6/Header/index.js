@@ -1,24 +1,4 @@
-'use strict';
-
-Object.defineProperty(exports, "__esModule", {
-	value: true
-});
-
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _react = require('react');
-
-var _react2 = _interopRequireDefault(_react);
-
-var _reactAddonsCssTransitionGroup = require('react-addons-css-transition-group');
-
-var _reactAddonsCssTransitionGroup2 = _interopRequireDefault(_reactAddonsCssTransitionGroup);
-
-var _classnames = require('classnames');
-
-var _classnames2 = _interopRequireDefault(_classnames);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
@@ -28,6 +8,9 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+import React, { PureComponent, PropTypes } from 'react';
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
+import classNames from 'classnames';
 var style = {
 	'root': 'Cal__Header__root',
 	'blank': 'Cal__Header__blank',
@@ -96,10 +79,10 @@ var Header = function (_PureComponent) {
 				}
 			}];
 
-			return _react2.default.createElement(
+			return React.createElement(
 				'div',
-				{ className: (0, _classnames2.default)(style.root, (_classNames = {}, _defineProperty(_classNames, style.blank, !selectedDate), _defineProperty(_classNames, style.landscape, layout == 'landscape'), _classNames)), style: theme && { backgroundColor: theme.headerColor, color: theme.textColor.active } },
-				selectedDate ? _react2.default.createElement(
+				{ className: classNames(style.root, (_classNames = {}, _defineProperty(_classNames, style.blank, !selectedDate), _defineProperty(_classNames, style.landscape, layout == 'landscape'), _classNames)), style: theme && { backgroundColor: theme.headerColor, color: theme.textColor.active } },
+				selectedDate ? React.createElement(
 					'div',
 					{ className: style.wrapper, 'aria-label': selectedDate.format(locale.headerFormat + ' YYYY') },
 					values.map(function (_ref) {
@@ -110,13 +93,13 @@ var Header = function (_PureComponent) {
 						    active = _ref.active,
 						    title = _ref.title;
 
-						return _react2.default.createElement(
+						return React.createElement(
 							'div',
-							{ key: item, className: (0, _classnames2.default)(style.dateWrapper, style[item], _defineProperty({}, style.active, active)), title: title },
-							_react2.default.createElement(
-								_reactAddonsCssTransitionGroup2.default,
+							{ key: item, className: classNames(style.dateWrapper, style[item], _defineProperty({}, style.active, active)), title: title },
+							React.createElement(
+								ReactCSSTransitionGroup,
 								{ transitionName: animation, transitionEnterTimeout: 250, transitionLeaveTimeout: 250, transitionEnter: shouldHeaderAnimate, transitionLeave: shouldHeaderAnimate },
-								_react2.default.createElement(
+								React.createElement(
 									'span',
 									{ key: item + '-' + (key || value), className: style.date, 'aria-hidden': true, onClick: handleClick },
 									value
@@ -124,7 +107,7 @@ var Header = function (_PureComponent) {
 							)
 						);
 					})
-				) : _react2.default.createElement(
+				) : React.createElement(
 					'div',
 					{ className: style.wrapper },
 					locale.blank
@@ -134,15 +117,15 @@ var Header = function (_PureComponent) {
 	}]);
 
 	return Header;
-}(_react.PureComponent);
+}(PureComponent);
 
 Header.propTypes = {
-	layout: _react.PropTypes.string,
-	locale: _react.PropTypes.object,
-	onClick: _react.PropTypes.func,
-	selectedDate: _react.PropTypes.oneOfType([_react.PropTypes.object, _react.PropTypes.bool]),
-	shouldHeaderAnimate: _react.PropTypes.bool,
-	theme: _react.PropTypes.object,
-	display: _react.PropTypes.string
+	layout: PropTypes.string,
+	locale: PropTypes.object,
+	onClick: PropTypes.func,
+	selectedDate: PropTypes.oneOfType([PropTypes.object, PropTypes.bool]),
+	shouldHeaderAnimate: PropTypes.bool,
+	theme: PropTypes.object,
+	display: PropTypes.string
 };
-exports.default = Header;
+export default Header;

@@ -1,16 +1,4 @@
-'use strict';
-
-Object.defineProperty(exports, "__esModule", {
-	value: true
-});
-exports.default = Day;
-
-var _react = require('react');
-
-var _react2 = _interopRequireDefault(_react);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
+import React from 'react';
 var style = {
 	'root': 'Cal__Day__root',
 	'enabled': 'Cal__Day__enabled',
@@ -24,7 +12,7 @@ var style = {
 	'day': 'Cal__Day__day'
 };
 
-function Day(_ref) {
+export default function Day(_ref) {
 	var currentYear = _ref.currentYear,
 	    date = _ref.date,
 	    day = _ref.day,
@@ -40,7 +28,7 @@ function Day(_ref) {
 
 	var year = mmt.year();
 
-	return _react2.default.createElement(
+	return React.createElement(
 		'li',
 		{
 			style: isToday ? { color: theme.todayColor } : null,
@@ -48,30 +36,30 @@ function Day(_ref) {
 			'data-date': yyyymmdd,
 			onClick: !isDisabled && handleDayClick ? handleDayClick.bind(this, mmt) : null
 		},
-		day === 1 && _react2.default.createElement(
+		day === 1 && React.createElement(
 			'span',
 			{ className: style.month },
 			monthShort
 		),
-		_react2.default.createElement(
+		React.createElement(
 			'span',
 			null,
 			day
 		),
-		day === 1 && currentYear !== year && _react2.default.createElement(
+		day === 1 && currentYear !== year && React.createElement(
 			'span',
 			{ className: style.year },
 			year
 		),
-		isSelected && _react2.default.createElement(
+		isSelected && React.createElement(
 			'div',
 			{ className: style.selection, style: { backgroundColor: typeof theme.selectionColor == 'function' ? theme.selectionColor(mmt) : theme.selectionColor, color: theme.textColor.active } },
-			_react2.default.createElement(
+			React.createElement(
 				'span',
 				{ className: style.month },
 				isToday ? locale.todayLabel.short || locale.todayLabel.long : monthShort
 			),
-			_react2.default.createElement(
+			React.createElement(
 				'span',
 				{ className: style.day },
 				day

@@ -1,31 +1,11 @@
-'use strict';
+import Moment from 'moment';
+import { extendMoment } from 'moment-range';
 
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-exports.scrollbarSize = exports.keyCodes = undefined;
-exports.getDaysInMonth = getDaysInMonth;
-exports.getMonthsForYear = getMonthsForYear;
-exports.getMonth = getMonth;
-exports.getWeeksInMonth = getWeeksInMonth;
-exports.getScrollSpeed = getScrollSpeed;
-exports.parseDate = parseDate;
-exports.validDate = validDate;
-exports.validParsedDate = validParsedDate;
+var moment = extendMoment(Moment);
 
-var _moment = require('moment');
+import getScrollbarSize from 'dom-helpers/util/scrollbarSize';
 
-var _moment2 = _interopRequireDefault(_moment);
-
-require('moment-range');
-
-var _scrollbarSize = require('dom-helpers/util/scrollbarSize');
-
-var _scrollbarSize2 = _interopRequireDefault(_scrollbarSize);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var keyCodes = exports.keyCodes = {
+export var keyCodes = {
     enter: 13,
     left: 37,
     up: 38,
@@ -37,27 +17,27 @@ var keyCodes = exports.keyCodes = {
     escape: 27
 };
 
-function getDaysInMonth(date) {
-    return (0, _moment2.default)(date).range('month').toArray('days');
+export function getDaysInMonth(date) {
+    return moment(date).range('month').toArray('days');
 }
 
-function getMonthsForYear(year, min, max) {
+export function getMonthsForYear(year, min, max) {
     var months = void 0;
 
     if (min && min.year() == year) {
-        months = _moment2.default.range([min, max && max.year() == year ? max : (0, _moment2.default)(min).endOf('year')]);
+        months = moment.range([min, max && max.year() == year ? max : moment(min).endOf('year')]);
     } else if (max && max.year() == year) {
-        months = _moment2.default.range([min && min.year() == year ? min : (0, _moment2.default)(year, 'YYYY').startOf('year'), max]);
+        months = moment.range([min && min.year() == year ? min : moment(year, 'YYYY').startOf('year'), max]);
     } else if (year) {
-        months = (0, _moment2.default)(year, 'YYYY').range('year');
+        months = moment(year, 'YYYY').range('year');
     } else {
-        months = (0, _moment2.default)().range('year');
+        months = moment().range('year');
     }
 
     return months.toArray('months');
 }
 
-function getMonth(monthDate) {
+export function getMonth(monthDate) {
     var rows = {};
     var daysInMonth = monthDate.daysInMonth();
     var year = monthDate.year();
@@ -69,7 +49,7 @@ function getMonth(monthDate) {
     var weekIndex = -1;
 
     for (var i = 0; i < daysInMonth; i++) {
-        date = (0, _moment2.default)(new Date(year, month, i + 1));
+        date = moment(new Date(year, month, i + 1));
         week = date.week();
 
         if (week !== lastWeekVal) {
@@ -95,9 +75,9 @@ function getMonth(monthDate) {
     };
 }
 
-function getWeeksInMonth(date, locale) {
-    var first = (0, _moment2.default)(date).startOf('month');
-    var last = (0, _moment2.default)(date).endOf('month');
+export function getWeeksInMonth(date, locale) {
+    var first = moment(date).startOf('month');
+    var last = moment(date).endOf('month');
     var firstWeek = first.locale(locale.name).week();
     var lastWeek = last.locale(locale.name).week();
 
@@ -128,7 +108,7 @@ function getWeeksInMonth(date, locale) {
     return rows;
 }
 
-function getScrollSpeed(settings) {
+export function getScrollSpeed(settings) {
     settings = settings || {};
 
     var lastPos,
@@ -157,9 +137,9 @@ function getScrollSpeed(settings) {
     };
 }
 
-function parseDate(date) {
+export function parseDate(date) {
     if (date) {
-        if (!date._isAMomentObject) date = (0, _moment2.default)(date);
+        if (!date._isAMomentObject) date = moment(date);
 
         return {
             date: date,
@@ -169,21 +149,21 @@ function parseDate(date) {
 }
 
 // Custom date prop validation
-function validDate(props, propName, componentName) {
-    if (props[propName] && !(0, _moment2.default)(props[propName]).isValid()) {
+export function validDate(props, propName, componentName) {
+    if (props[propName] && !moment(props[propName]).isValid()) {
         return new Error('Invalid prop `' + propName + '` supplied to ' + componentName + '. Should be a format supported by Moment.js, see http://momentjs.com/docs/.');
     }
 }
 
 // Custom date prop validation
-function validParsedDate(props, propName, componentName) {
+export function validParsedDate(props, propName, componentName) {
     var prop = props[propName];
 
-    if (prop.date && (0, _moment2.default)(prop.date).isValid() && prop.yyyymmdd && prop.yyyymmdd.length == 8) {
+    if (prop.date && moment(prop.date).isValid() && prop.yyyymmdd && prop.yyyymmdd.length == 8) {
         // valid
     } else {
         return new Error('Invalid prop `' + propName + '` supplied to ' + componentName + '.');
     }
 }
 
-var scrollbarSize = exports.scrollbarSize = (0, _scrollbarSize2.default)();
+export var scrollbarSize = getScrollbarSize();

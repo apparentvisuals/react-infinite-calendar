@@ -1,5 +1,7 @@
-import moment from 'moment';
-import 'moment-range';
+import Moment from 'moment';
+import { extendMoment } from 'moment-range';
+
+const moment = extendMoment(Moment);
 
 import getScrollbarSize from 'dom-helpers/util/scrollbarSize';
 
