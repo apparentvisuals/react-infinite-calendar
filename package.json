@@ -47,7 +47,6 @@
     "dom-helpers": "^2.4.0",
     "lodash": "^4.12.0",
     "moment": "^2.17.1",
-    "moment-range": "^3.0.1",
     "react-virtualized": "^8.11.4"
   },
   "peerDependencies": {
