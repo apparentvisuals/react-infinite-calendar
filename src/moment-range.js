@@ -114,6 +114,14 @@ export class DateRange {
         };
     }
 
+    toArray(by, exclusive) {
+        var acc = []; 
+        for (let unit of this.by(by, exclusive)) {
+            acc.push(unit);
+        }
+        return acc; 
+    }
+
     center() {
         const center = this.start.valueOf() + (this.diff() / 2);
         return moment(center);

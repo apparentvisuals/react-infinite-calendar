@@ -134,6 +134,37 @@ export var DateRange = function () {
             });
         }
     }, {
+        key: 'toArray',
+        value: function toArray(by, exclusive) {
+            var acc = [];
+            var _iteratorNormalCompletion = true;
+            var _didIteratorError = false;
+            var _iteratorError = undefined;
+
+            try {
+                for (var _iterator = this.by(by, exclusive)[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+                    var unit = _step.value;
+
+                    acc.push(unit);
+                }
+            } catch (err) {
+                _didIteratorError = true;
+                _iteratorError = err;
+            } finally {
+                try {
+                    if (!_iteratorNormalCompletion && _iterator.return) {
+                        _iterator.return();
+                    }
+                } finally {
+                    if (_didIteratorError) {
+                        throw _iteratorError;
+                    }
+                }
+            }
+
+            return acc;
+        }
+    }, {
         key: 'center',
         value: function center() {
             var center = this.start.valueOf() + this.diff() / 2;

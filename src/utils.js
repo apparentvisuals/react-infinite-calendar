@@ -17,7 +17,7 @@ export const keyCodes = {
 };
 
 export function getDaysInMonth(date) {
-    return Array.from(moment(date).range('month').by('days'));
+    return moment(date).range('month').toArray('days'); 
 }
 
 export function getMonthsForYear(year, min, max) {
@@ -33,7 +33,7 @@ export function getMonthsForYear(year, min, max) {
         months = moment().range('year');
     }
 
-    return Array.from(months.by('months'));
+    return months.toArray('months');
 }
 
 export function getMonth(monthDate) {
